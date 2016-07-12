@@ -1,22 +1,37 @@
 var express = require('express');
 var router = express.Router();
+var reg = require('./reg');
+var login = require('./login');
+var logout = require('./logout');
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+    res.render('index', {
+        title: 'Express'
+    });
 });
 
-/*Hello page*/
-router.get('/hello', function(req, res, next) {
-	res.send('The time is' + new Date().toString());
-});
+router.use('/reg', reg);
 
-/*partial view*/
-router.get('/list', function(req, res) {
-	res.render('list', {
-		title: 'List',
-		items: [1992, 'byzs', 'express', 'Node.js']
-	});
-});
+router.use('/login', checkNotLogin);
+router.use('/login', login);
+
+router.use('/logout', checkLogin);
+router.use('/logout', logout);
+
+function checkLogin(req,res,next){
+	if(!req.session.user){
+		req.flash('error','未登录');
+		return res.redirect('/login');
+	}
+	next();
+}
+
+function checkNotLogin(req,res,next){
+	if(req.session.user){
+		req.flash('error','已登录');
+		return res.redirect('/');
+	}
+	next();
+}
 
 module.exports = router;
