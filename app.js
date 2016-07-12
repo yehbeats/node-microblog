@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(flash());
 
 
-//ÊÓÍ¼ÖúÊÖ
+//ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½
 app.use(function(req, res, next) {
     app.locals.user = function() {
         return req.session.user;
@@ -61,7 +61,6 @@ app.use(function(req, res, next) {
 app.use(session({
 	secret: settings.cookieSecret,
 	store: new MongoStore({
-		/*db: settings.db*/
 		url: settings.url
 	})
 }));
