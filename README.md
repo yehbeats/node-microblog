@@ -19,7 +19,9 @@
 
 ##How To Start
 
-启动`MongoDB数据库服务`
+确保已启动`MongoDB数据库服务`
+
+然后执行下面命令：
 
 ```
 npm install
